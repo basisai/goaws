@@ -441,7 +441,7 @@ func ReceiveMessage(w http.ResponseWriter, req *http.Request) {
 		}
 
 	}
-	log.Println("Getting Message from Queue:", queueName)
+	log.Debug("Getting Message from Queue:", queueName)
 
 	app.SyncQueues.Lock() // Lock the Queues
 	if len(app.SyncQueues.Queues[queueName].Messages) > 0 {
@@ -491,7 +491,7 @@ func ReceiveMessage(w http.ResponseWriter, req *http.Request) {
 			},
 		}
 	} else {
-		log.Println("No messages in Queue:", queueName)
+		log.Debug("No messages in Queue:", queueName)
 		respStruct = app.ReceiveMessageResponse{Xmlns: "http://queue.amazonaws.com/doc/2012-11-05/", Result: app.ReceiveMessageResult{}, Metadata: app.ResponseMetadata{RequestId: "00000000-0000-0000-0000-000000000000"}}
 	}
 	app.SyncQueues.Unlock() // Unlock the Queues
